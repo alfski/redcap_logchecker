@@ -9,7 +9,10 @@ DB="redcapdb"
 
 START=`date +%s`
 
-echo -n "redcap_log_view rows: "
+THIS_HOST=`hostname`
+THIS_TIME=`date`
+
+echo -n $THIS_HOST "redcap_log_view rows: "
 mysql -h $HOST -D $DB <<QUERY | tail -1
 SELECT count(ts) from redcap_log_view;
 QUERY
@@ -48,4 +51,4 @@ END=`date +%s`
 DUR=$(($END-$START))
 
 echo
-echo "(This check took $DUR seconds to run)"
+echo "(This took $DUR seconds to run on $THIS_HOST at $THIS_TIME)"
